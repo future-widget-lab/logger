@@ -24,7 +24,7 @@ npm install @future-widget-lab/logger
 import { createLogger } from '@future-widget-lab/logger';
 
 const logger = createLogger({
-	level: 'info'
+  level: 'info'
 });
 
 logger.info({}, 'Application started');
@@ -36,14 +36,14 @@ logger.error({ errorCode: 500 }, 'Internal server error');
 To enable debug logs for a specific tag, add the corresponding command-line arguments to the command.
 
 ```shell
-node example.mjs DEBUG="auth-mode"
+DEBUG="auth-mode" node example.mjs
 ```
 
 ```typescript
 const logger = createLogger({
-	level: 'DEBUG',
-	allTag: 'all',
-	debugArgumentName: 'DEBUG'
+  level: 'DEBUG',
+  allTag: 'all',
+  debugArgumentName: 'DEBUG'
 });
 
 logger.debug('auth-module', { user: 'test' }, 'Authentication successful');
@@ -52,19 +52,19 @@ logger.debug('auth-module', { user: 'test' }, 'Authentication successful');
 You can also use the catch-all tag:
 
 ```shell
-node example.mjs DEBUG="all"
+DEBUG="all" node example.mjs
 ```
 
 ### Customizing Log Emojis
 
 ```typescript
 const logger = createLogger({
-	level: 'info',
-	debugEmoji: '🐛',
-	errorEmoji: '❌',
-	infoEmoji: 'ℹ️',
-	traceEmoji: '🔍',
-	warnEmoji: '⚠️'
+  level: 'info',
+  debugEmoji: '🐛',
+  errorEmoji: '❌',
+  infoEmoji: 'ℹ️',
+  traceEmoji: '🔍',
+  warnEmoji: '⚠️'
 });
 ```
 
@@ -74,10 +74,10 @@ You can perform custom actions after a log message is printed by using the `onAf
 
 ```typescript
 const logger = createLogger({
-	level: 'info',
-	onAfterMessage: ({ level, timestamp, payload, message }) => {
-		sendLogToAnalytics({ level, timestamp, payload, message });
-	}
+  level: 'info',
+  onAfterMessage: ({ level, timestamp, payload, message }) => {
+    sendLogToAnalytics({ level, timestamp, payload, message });
+  }
 });
 ```
 

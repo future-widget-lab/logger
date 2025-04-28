@@ -12,15 +12,13 @@ export const shouldDebug = (options: ShouldDebugOptions) => {
 	const { tag, debugArgumentName, allTag } = options;
 
 	try {
-		const debugArg = process.argv.find((arg) => {
-			return arg.includes(debugArgumentName);
-		});
+		const debugArg = process.env[debugArgumentName] || '';
 
 		if (!debugArg) {
 			return false;
 		}
 
-		const target = debugArg.split('=')[1] || '';
+		const target = debugArg || '';
 
 		if (target.length === 0) {
 			return false;
