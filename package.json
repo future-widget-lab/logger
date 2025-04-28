@@ -1,7 +1,7 @@
 {
   "name": "@future-widget-lab/logger",
-  "version": "0.1.4",
-  "description": "A good enough logger for client-side oriented applications.",
+  "version": "0.2.0",
+  "description": "A good enough logger for server-side oriented applications.",
   "license": "MIT",
   "author": "Carlos Lobo",
   "main": "dist/index.js",
@@ -46,9 +46,6 @@
   "jest": {
     "testEnvironment": "jsdom"
   },
-  "peerDependencies": {
-    "react": ">=16"
-  },
   "engines": {
     "node": ">=12"
   },
@@ -69,6 +66,7 @@
     "@size-limit/preset-small-lib": "^11.1.6",
     "@tsconfig/recommended": "^1.0.8",
     "@tsconfig/vite-react": "^3.4.0",
+    "@types/node": "^22.15.2",
     "@types/qs": "^6.9.18",
     "dts-cli": "^2.0.5",
     "husky": "^9.1.7",
@@ -86,8 +84,7 @@
     "custom-logger",
     "typescript",
     "emoji-logs",
-    "url-debugging",
-    "search-params",
+    "server-side-debugging",
     "debug-control",
     "log-formatter"
   ]

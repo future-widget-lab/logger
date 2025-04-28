@@ -1,11 +1,11 @@
 # @future-widget-lab/logger
 
-An opinionated but minimal logger built on top of `loglevel`. It allows you to define custom log levels, emojis for different log types, and control debug level logs based on URL search parameters.
+An opinionated but minimal logger built on top of `loglevel`. It allows you to define custom log levels, emojis for different log types, and control debug level logs based on command-line arguments.
 
 ## Features
 
 - Custom log levels and message formatting.
-- Debug logging controlled by URL search parameters.
+- Debug logging controlled by command-line arguments.
 - Fine-grained control over debug visibility using tags.
 - Emoji support for different log types.
 - Optional side effects after a message is printed.
@@ -33,28 +33,26 @@ logger.error({ errorCode: 500 }, 'Internal server error');
 
 ### Debugging
 
-To enable debug logs for a specific tag, add the corresponding search parameter to the URL.
+To enable debug logs for a specific tag, add the corresponding command-line arguments to the command.
+
+```shell
+node example.mjs DEBUG="auth-mode"
+```
 
 ```typescript
 const logger = createLogger({
-	level: 'debug',
+	level: 'DEBUG',
 	allTag: 'all',
-	debugSearchParameterName: 'debug'
+	debugArgumentName: 'DEBUG'
 });
 
 logger.debug('auth-module', { user: 'test' }, 'Authentication successful');
 ```
 
-To see the debug logs, navigate to:
+You can also use the catch-all tag:
 
-```
-http://example.com/?debug=auth-module
-```
-
-Or use the catch-all tag:
-
-```
-http://example.com/?debug=all
+```shell
+node example.mjs DEBUG="all"
 ```
 
 ### Customizing Log Emojis
@@ -91,19 +89,19 @@ Creates a new logger instance with the specified configuration options.
 
 #### Options
 
-| Option                     | Type           | Default         | Description                                                   |
-| -------------------------- | -------------- | --------------- | ------------------------------------------------------------- |
-| `level`                    | `LogLevelDesc` |                 | Sets the default log level.                                   |
-| `allTag`                   | `string`       | `'all'`         | Catch-all tag for debug logs.                                 |
-| `debugSearchParameterName` | `string`       | `'debug'`       | Name of the search parameter for debug logs.                  |
-| `shouldDebug`              | `ShouldDebug`  | Internal Helper | Custom function to determine if debug logs should be printed. |
-| `debugEmoji`               | `string`       | `'🕵'`          | Emoji for debug logs.                                         |
-| `errorEmoji`               | `string`       | `'📕'`          | Emoji for error logs.                                         |
-| `infoEmoji`                | `string`       | `'📘'`          | Emoji for info logs.                                          |
-| `traceEmoji`               | `string`       | `'📓'`          | Emoji for trace logs.                                         |
-| `warnEmoji`                | `string`       | `'📒'`          | Emoji for warn logs.                                          |
-| `onMessage`                | `function`     | `undefined`     | Custom message formatting handler.                            |
-| `onAfterMessage`           | `function`     | `undefined`     | Side-effect handler after logging.                            |
+| Option              | Type           | Default         | Description                                                   |
+| ------------------- | -------------- | --------------- | ------------------------------------------------------------- |
+| `level`             | `LogLevelDesc` |                 | Sets the default log level.                                   |
+| `allTag`            | `string`       | `'all'`         | Catch-all tag for debug logs.                                 |
+| `debugArgumentName` | `string`       | `'DEBUG'`       | Name of the command-line argument for debug logs.             |
+| `shouldDebug`       | `ShouldDebug`  | Internal Helper | Custom function to determine if debug logs should be printed. |
+| `debugEmoji`        | `string`       | `'🕵'`          | Emoji for debug logs.                                         |
+| `errorEmoji`        | `string`       | `'📕'`          | Emoji for error logs.                                         |
+| `infoEmoji`         | `string`       | `'📘'`          | Emoji for info logs.                                          |
+| `traceEmoji`        | `string`       | `'📓'`          | Emoji for trace logs.                                         |
+| `warnEmoji`         | `string`       | `'📒'`          | Emoji for warn logs.                                          |
+| `onMessage`         | `function`     | `undefined`     | Custom message formatting handler.                            |
+| `onAfterMessage`    | `function`     | `undefined`     | Side-effect handler after logging.                            |
 
 #### Methods
 

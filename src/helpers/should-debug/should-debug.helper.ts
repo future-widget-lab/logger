@@ -1,6 +1,6 @@
 type ShouldDebugOptions = {
 	tag: string;
-	debugSearchParameterName: string;
+	debugArgumentName: string;
 	allTag: string;
 };
 
@@ -9,19 +9,20 @@ type ShouldDebugOptions = {
  * Use this helper to determine if the given tag should be logged as a debug log.
  */
 export const shouldDebug = (options: ShouldDebugOptions) => {
-	const { tag, debugSearchParameterName, allTag } = options;
-
-	if (!window) {
-		return false;
-	}
-
-	const serializedSearchParameters = window.location.search ?? '';
-	const searchParams = new URLSearchParams(serializedSearchParameters);
+	const { tag, debugArgumentName, allTag } = options;
 
 	try {
-		const target = searchParams.get(debugSearchParameterName);
+		const debugArg = process.argv.find((arg) => {
+			return arg.includes(debugArgumentName);
+		});
 
-		if (!target) {
+		if (!debugArg) {
+			return false;
+		}
+
+		const target = debugArg.split('=')[1] || '';
+
+		if (target.length === 0) {
 			return false;
 		}
 

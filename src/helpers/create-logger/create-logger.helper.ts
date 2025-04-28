@@ -22,7 +22,7 @@ type CreateLoggerOptions = {
 	 * @description
 	 * Use this to set the default log level.
 	 *
-	 * Note: Debug level logs are controlled via URL search parameters. Please check `allTag` and `debugSearchParameterName` if you wish to customize the behavior.
+	 * Note: Debug level logs are controlled via command-line arguments. Please check `allTag` and `debugArgumentName` if you wish to customize the behavior.
 	 */
 	level: LogLevelDesc;
 	/**
@@ -36,26 +36,26 @@ type CreateLoggerOptions = {
 	 *  allTag: "all" // or any other joker string you'd like to use.
 	 * });
 	 *
-	 * // You are able to see all the debug level logs by setting your search params to `?debug=all`.
+	 * // You are able to see all the debug level logs by setting your command-line arguments to `DEBUG=all`.
 	 */
 	allTag?: string;
 	/**
 	 * @description
-	 * Use this to set the name of the search parameter which signals the debug logs should be printed.
+	 * Use this to set the name of the command-line argument which signals the debug logs should be printed.
 	 *
-	 * Defaults to "debug".
+	 * Defaults to "DEBUG".
 	 *
 	 * @example
 	 * const logger = createLogger({
 	 *  ...,
-	 *  debugSearchParameterName: "debug" // or any other string you'd like to use.
+	 *  debugArgumentName: "DEBUG" // or any other string you'd like to use.
 	 * });
 	 *
 	 * logger.debug("auth-module", { ok: true }, "Systems online.")
 	 *
-	 * // In order to print the log you'd need to update your URL with this search parameter `?debug=auth-module`.
+	 * // In order to print the log you'd need to update your command with this command-line argument `DEBUG=auth-module`.
 	 */
-	debugSearchParameterName?: string;
+	debugArgumentName?: string;
 	/**
 	 * @description
 	 * Use this to set a custom function that determines if a debug level log should be printed or not.
@@ -112,7 +112,7 @@ export const createLogger = (options: CreateLoggerOptions) => {
 	const {
 		level,
 		allTag = 'all',
-		debugSearchParameterName = 'debug',
+		debugArgumentName = 'DEBUG',
 		shouldDebug = defaultShouldDebug,
 		debugEmoji = '🕵',
 		errorEmoji = '📕',
@@ -127,7 +127,7 @@ export const createLogger = (options: CreateLoggerOptions) => {
 
 	const logger = {
 		debug(tag: string, object: object, message: string) {
-			if (!shouldDebug({ tag, allTag, debugSearchParameterName })) {
+			if (!shouldDebug({ tag, allTag, debugArgumentName })) {
 				return;
 			}
 
